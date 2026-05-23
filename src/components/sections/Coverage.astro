@@ -1,0 +1,120 @@
+---
+import Container from '@/components/ui/Container.astro';
+import { SITE_CONFIG, WHATSAPP_MESSAGES } from '@/data/siteConfig';
+
+const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(WHATSAPP_MESSAGES.contact)}`;
+
+const zones = [
+  'Ciudad de Mendoza',
+  'Godoy Cruz',
+  'Guaymallén',
+  'Las Heras',
+  'Maipú',
+  'Luján de Cuyo',
+  'San Martín',
+  'Junín',
+  'Rivadavia',
+  'Tunuyán',
+];
+
+const sectors = [
+  { label: 'Hogares', icon: 'home' },
+  { label: 'Comercios', icon: 'store' },
+  { label: 'Restaurantes', icon: 'utensils' },
+  { label: 'Oficinas', icon: 'briefcase' },
+  { label: 'Hoteles', icon: 'bed' },
+  { label: 'Consorcios', icon: 'building' },
+];
+
+const iconPaths = {
+  home: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+  store: 'M3 3h18l-2 9H5L3 3zm0 0l-1-3m4 12v6m8-6v6M5 21h14',
+  utensils: 'M3 3h2v18H3V3zm4 0h2v8H7V3zm4 18V3l4 6v12h-4z',
+  briefcase: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+  bed: 'M3 8v7m18 0V8M3 15h18M7 22v-3m10 3v-3 M7 13a3 3 0 100-6 3 3 0 000 6z',
+  building: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2m-2 0v-5h-2m0 0V9m0 4h-2m0 0V9m0 4h-2m0 0V9m0 4H7',
+};
+---
+
+<section class="relative py-12 md:py-16 overflow-hidden" style="background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);">
+  <Container>
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+      <div>
+        <span class="reveal chip bg-secondary-blue-light text-secondary-blue">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Cobertura
+        </span>
+
+        <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-5 mb-5 leading-[1.1] tracking-tightest text-balance">
+          Llegamos a toda <span class="text-gradient-brand">Mendoza</span>
+        </h2>
+
+        <p class="reveal reveal-delay-2 text-lg text-gray-600 mb-8 text-pretty">
+          Nuestro equipo se desplaza por toda la provincia para atender tu caso con la misma calidad y rapidez. Coordinamos visitas según tu disponibilidad.
+        </p>
+
+        <div class="reveal reveal-delay-3 flex flex-wrap gap-2 mb-8">
+          {zones.map((zone) => (
+            <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-gray-700 hover:border-secondary-orange hover:text-secondary-orange transition-all hover:-translate-y-0.5 shadow-soft">
+              <svg class="w-3.5 h-3.5 text-secondary-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+              {zone}
+            </span>
+          ))}
+        </div>
+
+        <div class="reveal reveal-delay-4 inline-flex items-center gap-3 p-3 pr-5 rounded-2xl bg-emerald-50 border border-emerald-100">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="text-sm">
+            <div class="font-bold text-emerald-900">¿Vivís fuera de Mendoza?</div>
+            <div class="text-emerald-700">Consultanos por <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="font-semibold underline">WhatsApp</a> y evaluamos tu caso.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="relative">
+          <div class="absolute -inset-4 bg-brand-gradient rounded-3xl opacity-10 blur-2xl"></div>
+          <div class="relative bg-white rounded-3xl border border-gray-100 shadow-card-hover p-6 md:p-8">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <div class="text-xs uppercase tracking-wider text-gray-500 font-bold">Atendemos</div>
+                <div class="font-display text-2xl font-bold text-gray-900">Todos los sectores</div>
+              </div>
+              <div class="px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200">
+                Disponible
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {sectors.map((s) => (
+                <div class="group p-4 rounded-2xl border border-gray-100 hover:border-secondary-orange hover:bg-secondary-orange-light/50 transition-all cursor-default">
+                  <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gray-50 group-hover:bg-white transition-colors mb-3">
+                    <svg class="w-5 h-5 text-gray-700 group-hover:text-secondary-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[s.icon]}/></svg>
+                  </div>
+                  <div class="font-semibold text-gray-900 text-sm">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-gray-100 grid grid-cols-3 gap-3 text-center">
+              <div>
+                <div class="font-display text-2xl font-extrabold text-gradient-brand"><span data-counter="10" data-suffix="+">0+</span></div>
+                <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Zonas</div>
+              </div>
+              <div>
+                <div class="font-display text-2xl font-extrabold text-gradient-brand">24/7</div>
+                <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Consultas</div>
+              </div>
+              <div>
+                <div class="font-display text-2xl font-extrabold text-gradient-brand"><span data-counter="100" data-suffix="%">0%</span></div>
+                <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Cobertura</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

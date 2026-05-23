@@ -1,0 +1,135 @@
+---
+import Container from '@/components/ui/Container.astro';
+
+const stats = [
+  { number: 500, suffix: '+', label: 'Clientes satisfechos' },
+  { number: 10, suffix: '+', label: 'Años de experiencia' },
+  { number: 4.8, decimals: 1, label: 'Rating en Google' },
+  { number: 98, suffix: '%', label: 'Casos resueltos' },
+];
+
+const commitments = [
+  {
+    title: 'Productos certificados',
+    description: 'Solo trabajamos con productos aprobados por SENASA.',
+  },
+  {
+    title: 'Personal capacitado',
+    description: 'Técnicos con formación continua en control de plagas.',
+  },
+  {
+    title: 'Soluciones a medida',
+    description: 'Cada problema es único: diseñamos un plan específico.',
+  },
+];
+---
+
+<section id="nosotros" class="relative py-12 md:py-16 overflow-hidden">
+  <Container>
+    <div class="grid lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-20 items-center">
+      <div class="reveal relative">
+        <div class="absolute -inset-6 rounded-[2.5rem] bg-brand-gradient opacity-10 blur-2xl"></div>
+
+        <div class="relative">
+          <div class="aspect-[5/6] rounded-[2rem] overflow-hidden shadow-brand relative" style="background: linear-gradient(135deg, #2c358c 0%, #1a1f5c 50%, #ef5e24 130%);">
+            <div class="absolute inset-0 opacity-20 bg-dot"></div>
+            <div class="absolute -top-20 -right-20 w-60 h-60 rounded-full opacity-30 blur-3xl" style="background: #ef5e24;"></div>
+
+            <div class="relative w-full h-full flex flex-col items-center justify-center p-10 text-center">
+              <div class="w-28 h-28 rounded-3xl glass-dark flex items-center justify-center mb-6 animate-float">
+                <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+              <p class="font-display text-3xl font-extrabold text-white mb-2">Equipo Profesional</p>
+              <p class="text-white/80 max-w-xs">Más de una década comprometidos con tu tranquilidad</p>
+
+              <div class="mt-8 grid grid-cols-2 gap-3 w-full max-w-xs">
+                <div class="glass-dark rounded-2xl p-3 text-left">
+                  <div class="text-xs uppercase tracking-wider text-white/60 font-semibold">Desde</div>
+                  <div class="text-white font-display font-bold text-2xl">2014</div>
+                </div>
+                <div class="glass-dark rounded-2xl p-3 text-left">
+                  <div class="text-xs uppercase tracking-wider text-white/60 font-semibold">Cobertura</div>
+                  <div class="text-white font-display font-bold text-2xl">Mendoza</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl p-4 shadow-card-hover w-44 animate-float-slow">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-emerald-100">
+                <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">100%</div>
+                <div class="font-display font-bold text-gray-900 text-sm leading-tight">Garantía<br/>escrita</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute -top-4 -left-4 bg-white rounded-2xl px-4 py-3 shadow-card-hover animate-float">
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-0.5 text-amber-400">
+                {[0,1,2,3,4].map(() => (
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 21 12 16.5 5.79 21l2.39-7.15L2 9.36h7.61z"/></svg>
+                ))}
+              </div>
+              <div class="font-display font-bold text-gray-900 text-sm">4.8</div>
+            </div>
+            <div class="text-[10px] text-gray-500 mt-0.5">127 reseñas en Google</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="reveal chip bg-secondary-blue-light text-secondary-blue">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+          Sobre nosotros
+        </span>
+
+        <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-5 mb-6 leading-[1.1] tracking-tightest text-balance">
+          Tu aliado de confianza en
+          <span class="text-gradient-brand">control de plagas</span>
+        </h2>
+
+        <div class="reveal reveal-delay-2 space-y-4 text-gray-600 text-lg leading-relaxed text-pretty">
+          <p>
+            Somos una empresa mendocina dedicada exclusivamente al control profesional de plagas. Nacimos con la misión de ofrecer soluciones efectivas y seguras para hogares y negocios de toda la provincia.
+          </p>
+          <p>
+            Nuestro equipo está formado por técnicos capacitados que utilizan productos de última generación, siempre pensando en la seguridad de tu familia y mascotas.
+          </p>
+        </div>
+
+        <div class="reveal reveal-delay-3 mt-8 space-y-3">
+          {commitments.map((c) => (
+            <div class="group flex items-start gap-4 p-4 rounded-2xl border border-gray-100 bg-white hover:border-secondary-orange/30 hover:shadow-soft transition-all">
+              <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-secondary-orange-light group-hover:bg-secondary-orange transition-colors">
+                <svg class="w-5 h-5 text-secondary-orange group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <div class="font-display font-bold text-gray-900">{c.title}</div>
+                <div class="text-sm text-gray-600 mt-0.5">{c.description}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="reveal reveal-delay-4 grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-10 border-t border-gray-200">
+          {stats.map((stat) => (
+            <div>
+              <div class="font-display text-2xl md:text-3xl font-extrabold text-gradient-brand tracking-tightest">
+                <span
+                  data-counter={stat.number}
+                  data-suffix={stat.suffix || ''}
+                  data-decimals={stat.decimals || 0}
+                >0{stat.suffix || ''}</span>
+              </div>
+              <div class="text-xs md:text-sm text-gray-500 mt-1">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

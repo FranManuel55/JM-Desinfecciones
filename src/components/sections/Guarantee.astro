@@ -1,0 +1,101 @@
+---
+import Container from '@/components/ui/Container.astro';
+import { SITE_CONFIG, WHATSAPP_MESSAGES } from '@/data/siteConfig';
+
+const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(WHATSAPP_MESSAGES.quote)}`;
+
+const points = [
+  {
+    title: 'Volvemos si persiste',
+    description: 'Si en el período de garantía la plaga reaparece, regresamos sin costo adicional para tu tranquilidad.',
+    icon: 'refresh',
+  },
+  {
+    title: 'Certificado de servicio',
+    description: 'Recibís un comprobante escrito con el detalle del tratamiento aplicado y la garantía correspondiente.',
+    icon: 'document',
+  },
+  {
+    title: 'Productos habilitados',
+    description: 'Solo utilizamos productos aprobados por SENASA, seguros para personas, mascotas y plantas.',
+    icon: 'badge',
+  },
+];
+
+const iconPaths = {
+  refresh: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+  document: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  badge: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
+};
+---
+
+<section class="relative py-12 md:py-16 overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-gray-50/80 via-white to-white"></div>
+
+  <Container>
+    <div class="grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-16 items-center">
+      <div class="reveal relative order-2 lg:order-1">
+        <div class="relative max-w-md mx-auto">
+          <div class="absolute -inset-8 bg-brand-gradient rounded-full opacity-10 blur-3xl animate-pulse-slow"></div>
+
+          <div class="relative aspect-square rounded-full flex items-center justify-center bg-white shadow-card-hover border border-gray-100">
+            <div class="absolute inset-4 rounded-full border-2 border-dashed border-gray-200 animate-spin-slow"></div>
+            <div class="absolute inset-10 rounded-full" style="background: conic-gradient(from 180deg at 50% 50%, rgba(239,94,36,0.08), rgba(44,53,140,0.08), rgba(239,94,36,0.08));"></div>
+
+            <div class="relative text-center px-8">
+              <div class="mx-auto mb-4 w-20 h-20 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #ef5e24 0%, #2c358c 100%);">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div class="text-[10px] uppercase tracking-[0.18em] text-gray-500 font-bold mb-1">Compromiso</div>
+              <div class="font-display text-5xl md:text-6xl font-extrabold tracking-tightest text-gradient-brand">100%</div>
+              <div class="font-display text-xl font-bold text-gray-900 mt-1">Garantizado</div>
+              <div class="text-sm text-gray-500 mt-2 max-w-[180px] mx-auto">o repetimos el servicio sin costo</div>
+            </div>
+
+            <div class="absolute -top-2 right-8 w-14 h-14 rounded-2xl bg-white shadow-card-hover flex items-center justify-center animate-float">
+              <svg class="w-7 h-7 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="absolute -bottom-2 left-6 px-3 py-2 bg-white rounded-2xl shadow-card-hover flex items-center gap-2 animate-float-slow">
+              <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 21 12 16.5 5.79 21l2.39-7.15L2 9.36h7.61z"/></svg>
+              <span class="text-xs font-bold text-gray-900">Calidad premium</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <span class="reveal chip bg-emerald-50 text-emerald-700">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Nuestra promesa
+        </span>
+
+        <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-5 mb-5 leading-[1.1] tracking-tightest text-balance">
+          Resultados garantizados o <span class="text-gradient-brand">no nos pagás dos veces</span>
+        </h2>
+
+        <p class="reveal reveal-delay-2 text-lg text-gray-600 mb-8 text-pretty">
+          Cada servicio incluye una garantía escrita. Si el problema persiste durante el período pactado, volvemos sin costo adicional. Tu satisfacción es nuestro estándar.
+        </p>
+
+        <div class="space-y-3">
+          {points.map((p, i) => (
+            <div class={`reveal reveal-delay-${i + 3} group flex gap-4 p-5 rounded-2xl border border-gray-100 bg-white hover:border-secondary-orange/30 hover:shadow-soft transition-all`}>
+              <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-secondary-orange-light to-white border border-secondary-orange-light">
+                <svg class="w-6 h-6" fill="none" stroke="#ef5e24" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[p.icon]}/></svg>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-gray-900 mb-1">{p.title}</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">{p.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="reveal reveal-delay-6 btn-whatsapp mt-8">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+          Quiero conocer mi garantía
+        </a>
+      </div>
+    </div>
+  </Container>
+</section>

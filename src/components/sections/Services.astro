@@ -1,0 +1,121 @@
+---
+import Container from '@/components/ui/Container.astro';
+import PestIcon from '@/components/ui/PestIcon.astro';
+import { getCollection } from 'astro:content';
+import { SITE_CONFIG, WHATSAPP_MESSAGES } from '@/data/siteConfig';
+
+const services = await getCollection('services');
+const sortedServices = services.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+
+const iconToPest: Record<string, 'rat' | 'cockroach' | 'bedbug' | 'flea'> = {
+  mouse: 'rat',
+  bug: 'cockroach',
+  footprints: 'flea',
+  'bed-double': 'bedbug',
+};
+
+const serviceMeta: Record<string, { tag: string; technical: string; includes: string[]; color: string; popular?: boolean }> = {
+  'Control de Roedores': {
+    tag: 'Residencial · Comercial',
+    technical: 'Desratización',
+    color: 'orange',
+    popular: true,
+    includes: ['Inspección de focos y accesos', 'Cebos rodenticidas + trampas', 'Sellado preventivo', 'Visita de seguimiento'],
+  },
+  'Control de Cucarachas': {
+    tag: 'Alemanas · Americanas',
+    technical: 'Desinsectación',
+    color: 'blue',
+    popular: true,
+    includes: ['Gel cebo profesional', 'Aspersión residual', 'Sin necesidad de evacuar', 'Resultados en 7-14 días'],
+  },
+  'Control de Pulgas y Garrapatas': {
+    tag: 'Hogar con mascotas',
+    technical: 'Desinsectación',
+    color: 'orange',
+    includes: ['Tratamiento por aspersión', 'Producto apto mascotas', 'Interior + exterior', 'Efecto residual prolongado'],
+  },
+  'Control de Chinches': {
+    tag: 'Tratamiento avanzado',
+    technical: 'Tratamiento térmico',
+    color: 'blue',
+    includes: ['Inspección de focos', 'Método térmico + químico', 'Tratamiento por habitación', 'Visita de verificación'],
+  },
+};
+
+const colorMap = {
+  orange: { from: '#ef5e24', to: '#d54d18', soft: '#fef3e8', text: '#ef5e24' },
+  blue: { from: '#2c358c', to: '#1a1f5c', soft: '#e8eaf6', text: '#2c358c' },
+};
+
+const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(WHATSAPP_MESSAGES.services)}`;
+---
+
+<section id="servicios" class="relative py-12 md:py-16 bg-gray-50/80 overflow-hidden">
+  <div class="absolute inset-0 -z-0 bg-grid bg-grid-fade opacity-50"></div>
+
+  <Container>
+    <div class="relative text-center mb-10 md:mb-12 max-w-3xl mx-auto">
+      <span class="reveal chip bg-white border border-gray-200 text-secondary-orange shadow-soft">
+        <span class="w-1.5 h-1.5 rounded-full bg-secondary-orange animate-pulse"></span>
+        Nuestros servicios
+      </span>
+      <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-5 mb-4 text-balance tracking-tightest">
+        Soluciones a medida para <span class="text-gradient-brand">cada plaga</span>
+      </h2>
+      <p class="reveal reveal-delay-2 text-lg text-gray-600 text-pretty">
+        Técnicas profesionales y productos de última generación. Trabajamos con hogares, negocios, restaurantes, hoteles y consorcios.
+      </p>
+    </div>
+
+    <div class="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+      {sortedServices.map((service, i) => {
+        const meta = serviceMeta[service.data.title] || { tag: '', technical: '', includes: [], color: 'orange' as const };
+        const c = colorMap[meta.color as keyof typeof colorMap];
+        const pestName = iconToPest[service.data.icon] || 'cockroach';
+        return (
+          <article class={`reveal reveal-delay-${(i % 4) + 1} group relative bg-white rounded-3xl overflow-hidden border border-gray-100 hover-lift hover:shadow-card-hover transition-all flex flex-col`}>
+            {meta.popular && (
+              <div class="absolute top-4 right-4 z-10">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-md" style={`background: linear-gradient(135deg, ${c.from}, ${c.to});`}>
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 21 12 16.5 5.79 21l2.39-7.15L2 9.36h7.61z"/></svg>
+                  Popular
+                </span>
+              </div>
+            )}
+
+            <div class="p-7 pb-5">
+              <div class="relative w-20 h-20 rounded-2xl mb-5 flex items-center justify-center overflow-hidden" style={`background: linear-gradient(135deg, ${c.from} 0%, ${c.to} 100%);`}>
+                <div class="absolute inset-0 opacity-30 mix-blend-overlay" style="background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.45), transparent 60%);"></div>
+                <div class="absolute inset-0 opacity-15 bg-dot"></div>
+                <PestIcon name={pestName} color="rgba(255,255,255,0.95)" class="w-11 h-11 relative transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" />
+              </div>
+
+              {meta.technical && (
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-3" style={`background-color: ${c.soft}; color: ${c.text};`}>
+                  <span class="w-1.5 h-1.5 rounded-full" style={`background-color: ${c.text};`}></span>
+                  {meta.technical}
+                </div>
+              )}
+              <h3 class="font-display text-xl font-bold text-gray-900 mb-2 tracking-tight leading-snug">{service.data.title}</h3>
+              {meta.tag && <div class="text-[11px] font-semibold uppercase tracking-wider mb-3 text-gray-500">{meta.tag}</div>}
+              <p class="text-gray-600 text-[15px] leading-relaxed">{service.data.description}</p>
+            </div>
+
+            <div class="px-7 pb-7 mt-auto">
+              <ul class="space-y-2">
+                {meta.includes.map((item) => (
+                  <li class="flex items-start gap-2 text-[13px] text-gray-700">
+                    <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke={c.text} viewBox="0 0 24 24" stroke-width="2.6"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+  </Container>
+</section>

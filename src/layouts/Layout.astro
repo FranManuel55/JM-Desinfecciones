@@ -1,23 +1,148 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+---
+import '@/styles/globals.css';
+import { SITE_CONFIG } from '@/data/siteConfig';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${SITE_CONFIG.name} | Control de Plagas en Mendoza`,
+  description = SITE_CONFIG.description,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#ef5e24" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={SITE_CONFIG.name} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-gray-800 selection:bg-secondary-orange/20 selection:text-secondary-orange-dark">
+    <slot />
+
+    <script is:inline>
+      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+
+    <script is:inline>
+      // Scroll-triggered reveal animations
+      const initReveal = () => {
+        const els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) {
+          els.forEach((el) => el.classList.add('in-view'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+        els.forEach((el) => io.observe(el));
+      };
+
+      // Animated counter for numbers with data-counter
+      const initCounters = () => {
+        const counters = document.querySelectorAll('[data-counter]');
+        if (!('IntersectionObserver' in window)) {
+          counters.forEach((el) => {
+            el.textContent = el.getAttribute('data-counter');
+          });
+          return;
+        }
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target;
+              const target = parseFloat(el.getAttribute('data-counter') || '0');
+              const suffix = el.getAttribute('data-suffix') || '';
+              const prefix = el.getAttribute('data-prefix') || '';
+              const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+              const duration = 1400;
+              const start = performance.now();
+              const animate = (now) => {
+                const p = Math.min(1, (now - start) / duration);
+                const ease = 1 - Math.pow(1 - p, 3);
+                const value = target * ease;
+                el.textContent = prefix + value.toFixed(decimals) + suffix;
+                if (p < 1) requestAnimationFrame(animate);
+                else el.textContent = prefix + target.toFixed(decimals) + suffix;
+              };
+              requestAnimationFrame(animate);
+              obs.unobserve(el);
+            });
+          },
+          { threshold: 0.4 }
+        );
+        counters.forEach((c) => obs.observe(c));
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        initReveal();
+        initCounters();
+      });
+    </script>
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<script is:inline type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": SITE_CONFIG.name,
+  "description": SITE_CONFIG.description,
+  "telephone": SITE_CONFIG.phone,
+  "email": SITE_CONFIG.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Gdor. González 586",
+    "addressLocality": "Mendoza",
+    "addressRegion": "Mendoza",
+    "addressCountry": "AR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": SITE_CONFIG.coordinates.lat,
+    "longitude": SITE_CONFIG.coordinates.lng
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "08:00",
+      "closes": "19:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": SITE_CONFIG.socialRating,
+    "reviewCount": SITE_CONFIG.socialReviewCount
+  }
+})}></script>

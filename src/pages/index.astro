@@ -1,11 +1,44 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp.astro';
+import BackToTop from '@/components/layout/BackToTop.astro';
+import Hero from '@/components/sections/Hero.astro';
+import Features from '@/components/sections/Features.astro';
+import About from '@/components/sections/About.astro';
+import Services from '@/components/sections/Services.astro';
+import Guarantee from '@/components/sections/Guarantee.astro';
+import Process from '@/components/sections/Process.astro';
+import Coverage from '@/components/sections/Coverage.astro';
+import Reviews from '@/components/sections/Reviews.astro';
+import FAQ from '@/components/sections/FAQ.astro';
+import Contact from '@/components/sections/Contact.astro';
+import CTAFinal from '@/components/sections/CTAFinal.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="JM Desinfecciones | Control de Plagas en Mendoza"
+  description="Soluciones profesionales en control de plagas en Mendoza. Eliminamos roedores, cucarachas, pulgas, garrapatas y chinches. Servicio con garantía escrita."
+>
+  <Navbar />
+
+  <main>
+    <Hero />
+    <Features />
+    <About />
+    <Services />
+    <Guarantee />
+    <Process />
+    <Coverage />
+    <Reviews />
+    <FAQ />
+    <Contact />
+    <CTAFinal />
+  </main>
+
+  <Footer />
+
+  <FloatingWhatsApp />
+  <BackToTop />
 </Layout>
